@@ -30,6 +30,10 @@ jobs:
         id: find_yaml
         run: echo "yaml_files=$(find k8s -name '*.yaml' | tr '\n' ' ')" >> $GITHUB_ENV
 
+      - name: Log in to Docker Hub
+        run: |
+          echo vrinda1725 | docker login -u vrindabhargav25 --password-stdin
+
       - name: Run kubesec scanner
         run: |
           docker run --rm -v $(pwd):/workspace controlplaneio/kubesec:v2 scan /workspace/k8s/frontend-deployment.yaml \
