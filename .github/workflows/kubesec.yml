@@ -36,7 +36,7 @@ jobs:
 
       - name: Run kubesec scanner
         run: |
-          docker run --rm -v $(pwd):/workspace controlplaneio/kubesec:v2 scan /workspace/k8s/frontend-deployment.yaml \
+          docker run --rm -v $(pwd):/workspace kubesec/kubesec:v2.11.5 scan /workspace/k8s/frontend-deployment.yaml \
             --format=template --template=template/sarif.tpl --output=kubesec-results.sarif --exit-code=0
 
       - name: Upload Kubesec scan results to GitHub Security tab
