@@ -26,8 +26,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Run kubesec scanner
-        uses: controlplaneio/kubesec-action@master
+      - name: ControlPlane Kubesec
+        uses: controlplaneio/kubesec-action@v0.0.2
         with:
           input: k8s/backend-deploy.yml
           format: template
