@@ -26,13 +26,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: ControlPlane Kubesec
-        uses: controlplaneio/kubesec-action@v0.0.2
-        with:
-          input: k8s/backend-deploy.yml
-          format: json
-          output: kubesec-results.sarif
-          exit-code: "0"
+      - name: Run Kubesec
+        run: |
+          kubesec scan k8s/backend-deploy.yml -o json > kubesec-results.json
+          jq -n --argfile input kubesec-results.json '{ "runs": [ { "results": $input } ] }' > kubesec-results.sarif
 
       - name: Upload Kubesec scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
